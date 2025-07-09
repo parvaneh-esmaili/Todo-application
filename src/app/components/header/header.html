@@ -1,0 +1,9 @@
+<div class="h-16 bg-teal-800 border-b flex items-center justify-between px-4 ">
+  <p class="font-semibold text-white text-xl">Todo Task Manager</p>
+
+  <div class="flex gap-3">
+    <a *ngFor="let item of menu" [routerLink]="item.url" routerLinkActive="scale-110"
+      class="flex items-center justify-center px-4 h-10 font-semibold text-lg border rounded-md text-white hover:bg-blue-100 hover:text-teal-800 duration-300 active:scale-95">
+      {{item.item}}</a>
+  </div>
+</div>
