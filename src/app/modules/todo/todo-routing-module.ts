@@ -4,21 +4,24 @@ import { Todo } from './todo';
 import { List } from './pages/list/list';
 import { Add } from './pages/add/add';
 import { Edit } from './pages/edit/edit';
-import { Login } from './pages/login/login';
+import { Login } from './pages/register/register';
 
 const routes: Routes = [
-  {path:'', component: Todo, children:[ 
-    {path: '', redirectTo: 'list', pathMatch:'full'},
-    {path: 'list', component: List},
-    {path: 'add', component: Add},
-    {path: 'edit/:documentId', component: Edit},
-    {path: 'login', component: Login}
-    ]
-  }
+  {
+    path: '',
+    component: Todo,
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: 'list', component: List },
+      { path: 'add', component: Add },
+      { path: 'edit/:documentId', component: Edit },
+      { path: 'login', component: Login },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TodoRoutingModule { }
+export class TodoRoutingModule {}
