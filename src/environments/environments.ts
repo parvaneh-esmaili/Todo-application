@@ -1,10 +1,4 @@
-export interface Environment {
-  production: boolean;
-  apiUrl: string;
-}
-
-export const environment: Environment = {
+export const environment = {
   production: false,
-  apiUrl: 'http://localhost:1337/api',
+  apiUrl: 'http://localhost:1337'
 };
-

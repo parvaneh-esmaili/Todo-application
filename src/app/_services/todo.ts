@@ -2,19 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { TodoForListModel, TodoForSaveModel } from '../_models/todo.model';
+import { environment } from '../../environments/environments';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  private apiUrl = 'http://localhost:1337/api/todos';
+  private ApiUrl = environment.apiUrl + '/auth/local';
 
   constructor(private http: HttpClient) {}
 
   //----------Get todos----------//
   GetTodo(): Observable<TodoForListModel[]> {
     return this.http
-      .get<{ data: TodoForListModel[] }>(this.apiUrl)
+      .get<{ data: TodoForListModel[] }>(this.ApiUrl)
       .pipe(map((response) => response.data || []));
   }
 
@@ -22,7 +24,7 @@ export class TodoService {
   AddTodo(newTodo: TodoForSaveModel): Observable<TodoForListModel> {
     console.log(newTodo);
     return this.http
-      .post<{ data: TodoForListModel }>(this.apiUrl, { data: newTodo })
+      .post<{ data: TodoForListModel }>(this.ApiUrl, { data: newTodo })
       .pipe(map((response) => response.data));
   }
 
@@ -30,13 +32,13 @@ export class TodoService {
   //----------Delete todo----------//
   DeleteTodo(documentId: string): Observable<any> {
     return this.http
-      .delete(`${this.apiUrl}/${documentId}`);
+      .delete(`${this.ApiUrl}/${documentId}`);
   }
 
   //----------Get todo by its DocumentId----------//
   GetTodoByDocumentId(documentId: string): Observable<{ data: TodoForListModel }> {
     return this.http
-      .get<{ data: TodoForListModel }>(`${this.apiUrl}/${documentId}`);
+      .get<{ data: TodoForListModel }>(`${this.ApiUrl}/${documentId}`);
   }
 
   //----------Edit Todo----------//
@@ -46,7 +48,7 @@ export class TodoService {
     description: todoForUpdate.description,
     };
    return this.http
-    .put<{ data: TodoForListModel }>(`${this.apiUrl}/${todoForUpdate.documentId}`, { data: todo })
+    .put<{ data: TodoForListModel }>(`${this.ApiUrl}/${todoForUpdate.documentId}`, { data: todo })
     .pipe(map(res => res.data));
    }
 }

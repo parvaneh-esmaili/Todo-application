@@ -4,7 +4,8 @@ import { Todo } from './todo';
 import { List } from './pages/list/list';
 import { Add } from './pages/add/add';
 import { Edit } from './pages/edit/edit';
-import { Login } from './pages/register/register';
+import { Register } from './pages/register/register';
+import { Login } from './pages/login/login';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'list', component: List },
       { path: 'add', component: Add },
       { path: 'edit/:documentId', component: Edit },
+      { path: 'register', component: Register },
       { path: 'login', component: Login },
     ],
   },

@@ -12,6 +12,7 @@ export class Header {
     menu = [
     { item: 'List', url: './list' },
     { item: 'Add', url: './add' },
-    { item: 'Log In', url: './login' },
+    { item: 'Register', url: './register' },
+    { item: 'login', url: './login' },
   ];
 }

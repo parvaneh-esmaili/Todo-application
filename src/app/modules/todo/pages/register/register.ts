@@ -4,12 +4,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Auth } from '../../../../_services/auth';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-Register',
   imports: [ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class Login {
+export class Register {
   constructor(private authService: Auth){}
 
   userLogin: IuserModel = {
@@ -18,7 +18,7 @@ export class Login {
     password: '',
   };
 
-  registerForm:FormGroup = new FormGroup<any> ({
+  registerForm: FormGroup = new FormGroup<any> ({
     username : new FormControl(this.userLogin.username,[Validators.required]),
     email : new FormControl(this.userLogin.email,[Validators.required]),
     password : new FormControl(this.userLogin.password,[Validators.required])
