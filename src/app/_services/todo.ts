@@ -9,11 +9,11 @@ import { environment } from '../../environments/environments';
   providedIn: 'root',
 })
 export class TodoService {
-  private ApiUrl = environment.apiUrl + '/auth/local';
+  private ApiUrl = environment.apiUrl + '/todos';
 
   constructor(private http: HttpClient) {}
 
-  //----------Get todos----------//
+  //----------Get all todos----------//
   GetTodo(): Observable<TodoForListModel[]> {
     return this.http
       .get<{ data: TodoForListModel[] }>(this.ApiUrl)
@@ -29,13 +29,13 @@ export class TodoService {
   }
 
 
-  //----------Delete todo----------//
+  //----------Delete todo by documentId----------//
   DeleteTodo(documentId: string): Observable<any> {
     return this.http
       .delete(`${this.ApiUrl}/${documentId}`);
   }
 
-  //----------Get todo by its DocumentId----------//
+  //----------Get a todo by DocumentId----------//
   GetTodoByDocumentId(documentId: string): Observable<{ data: TodoForListModel }> {
     return this.http
       .get<{ data: TodoForListModel }>(`${this.ApiUrl}/${documentId}`);

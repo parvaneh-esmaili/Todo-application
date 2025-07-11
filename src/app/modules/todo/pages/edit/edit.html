@@ -11,7 +11,8 @@
           type="text"
           placeholder="Title..."
           class="w-full px-4 py-2 border border-gray-300 rounded-md "
-          [(ngModel)]="todoForUpdate.title"/>
+          [(ngModel)]="todoForUpdate.title"
+          [ngModelOptions]="{standalone: true}"/>
       </div>
 
       <!-- Description -->
@@ -22,12 +23,13 @@
           type="text"
           placeholder="Description..."
           class="w-full px-4 py-2 border border-gray-300 rounded-md"
-          [(ngModel)]="todoForUpdate.description"/>
+          [(ngModel)]="todoForUpdate.description"
+          [ngModelOptions]="{standalone: true}"/>
       </div>
 
       <!-- Button -->
       <button type="submit"        
-        class="w-full py-2 bg-teal-600 text-white rounded-md font-semibold hover:bg-teal-700"
+        class="w-full py-2 bg-teal-600 text-white rounded-md font-semibold hover:bg-teal-700 my-2"
         (click)="editTodo()"
         >
         Edit

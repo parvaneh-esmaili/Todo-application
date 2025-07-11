@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-edit',
   imports: [FormsModule],
   templateUrl: './edit.html',
-  styleUrl: './edit.css'
+  styleUrl: './edit.css',
+  standalone: true
 })
 export class Edit  implements OnInit {
   

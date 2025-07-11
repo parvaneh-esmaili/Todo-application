@@ -17,12 +17,12 @@ export class Login {
   });
 
   LogIn() {
-    const newUser = {
+    const User = {
       identifier: this.loginForm.value.username,
       password: this.loginForm.value.password
     };
 
-    this.authService.loginUser(newUser).subscribe((response) => {
+    this.authService.loginUser(User).subscribe((response) => {
       const token = response.jwt;
       this.authService.saveToken(token);
       localStorage.setItem('userID', response.user.id.toString());
