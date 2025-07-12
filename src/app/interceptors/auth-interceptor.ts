@@ -1,29 +1,55 @@
-import { HttpRequest, HttpHandlerFn, HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environments';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const router = inject(Router);
-  const baseUrl = environment.apiUrl;
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
 
-  if (req.url.startsWith(baseUrl + '/todos')) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      req = req.clone({
-        setHeaders: { Authorization: `Bearer ${token}` }
-      });
-    }
-  }
 
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        router.navigate(['/login']);
+
+  baseUrl: string = environment.apiUrl;
+
+
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+
+    if (req.url.startsWith(this.baseUrl + '/todos')) {
+      const token = localStorage.getItem("token");
+      if (token) {
+
+        const cloned = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        return next.handle(cloned).pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 401 ) {
+              console.log("We Have an error")
+            }
+            return throwError(error);
+          })
+        );
+
       }
-      return throwError(() => error);
-    })
-  );
-};
+    }
+
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    )
+  }
+}
