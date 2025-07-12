@@ -6,6 +6,7 @@ import { Add } from './pages/add/add';
 import { Edit } from './pages/edit/edit';
 import { Register } from './pages/register/register';
 import { Login } from './pages/login/login';
+import { authGuard } from '../../guards/auth-guard';
 
 const routes: Routes = [
   {
@@ -13,9 +14,9 @@ const routes: Routes = [
     component: Todo,
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: List },
-      { path: 'add', component: Add },
-      { path: 'edit/:documentId', component: Edit },
+      { path: 'list', component: List, canActivate: [authGuard] },
+      { path: 'add', component: Add, canActivate: [authGuard] },
+      { path: 'edit/:documentId', component: Edit, canActivate: [authGuard] },
       { path: 'register', component: Register },
       { path: 'login', component: Login },
     ],

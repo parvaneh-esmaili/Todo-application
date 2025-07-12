@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { TodoService } from '../../../../_services/todo';
 import { TodoForListModel } from '../../../../_models/todo.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,13 +14,13 @@ import { FormsModule } from '@angular/forms';
 export class Edit  implements OnInit {
   
   todoForUpdate: TodoForListModel = new TodoForListModel();
-
   documentId: string = '';
 
   constructor(
-    private todoService: TodoService,
-    private route: ActivatedRoute
-  ) {}
+  private todoService: TodoService,
+  private route: ActivatedRoute,
+  private router: Router
+) {}
 
   ngOnInit(): void {
     this.documentId = this.route.snapshot.paramMap.get('documentId')!;
@@ -30,8 +30,14 @@ export class Edit  implements OnInit {
   }
 
    editTodo() {
-    this.todoService.EditTodo(this.todoForUpdate).subscribe(() => {
-      console.log('done');
-    });
-  }
+  this.todoService.EditTodo(this.todoForUpdate).subscribe({
+    next: () => {
+      console.log('Todo updated successfully');
+      this.router.navigate(['/list']);
+    },
+    error: (err) => {
+      console.error('Error updating todo', err);
+    }
+  });
+}
 }
